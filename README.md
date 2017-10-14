@@ -19,7 +19,7 @@ Limitations:
 * Need to know the buffer limit/size
 
 ## How it works
-You might have heard of [Heap Spraying](https://www.corelan.be/index.php/2011/12/31/exploit-writing-tutorial-part-11-heap-spraying-demystified/) attack? Well, [Stack Spraying](http://j00ru.vexillium.org/?p=769) is similar, however, it was considered unpractical for most cases, especially [ASLR](https://en.wikipedia.org/wiki/Address_space_layout_randomization).
+You might have heard of [Heap Spraying](https://www.corelan.be/index.php/2011/12/31/exploit-writing-tutorial-part-11-heap-spraying-demystified/) attack? Well, [Stack Spraying](http://j00ru.vexillium.org/?p=769) is similar, however, it was considered unpractical for most cases, especially [ASLR](https://en.wikipedia.org/wiki/Address_space_layout_randomization) on x86-64.
 
 My work will prove the opposite.
 
