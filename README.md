@@ -6,6 +6,7 @@ Properties:
 * Cross-platform
 * Minimalistic
 * Simplicity
+* Unpatchable
 
 Dependencies:
 * **Linux 2.6.12+** - will work on any x86-64 Linux-based OS
@@ -14,7 +15,7 @@ Dependencies:
 Limitations:
 * Stack needs to be executable (-z execstack)
 * Binary has to be exploited through arguments locally (not file, socket or input)
-* No support for other architectures (TODO)
+* No support for other architectures and OSes (TODO)
 * Need to know the buffer limit/size
 
 ## How it works
