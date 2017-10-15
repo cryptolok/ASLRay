@@ -11,7 +11,7 @@ Properties:
 * Unpatchable
 
 Dependencies:
-* **Linux 2.6.12+** - will work on any x86-64 Linux-based OS
+* **Linux 2.6.12+** - will work on any x86-64 Debian-based OS
 	- BASH - the whole script
 
 Limitations:
