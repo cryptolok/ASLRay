@@ -59,9 +59,10 @@ or
 readelf -l test | grep RWE
 cat /proc/sys/kernel/randomize_va_space
 ```
-For Arch/Ubuntu you will also need to disable stack smashing protection:
+For Arch/Ubuntu you will also need to disable stack smashing protection and optionally install 32-bit library:
 ```bash
 sudo gcc -z execstack -fno-stack-protector test.c -o test
+sudo apt install libc6-dev-i386
 sudo gcc -m32 -z execstack -fno-stack-protector test.c -o test32 
 ```
 
