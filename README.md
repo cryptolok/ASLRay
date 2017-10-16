@@ -11,7 +11,7 @@ Properties:
 * Unpatchable
 
 Dependencies:
-* **Linux 2.6.12+** - will work on any x86-64 Debian-based OS
+* **Linux 2.6.12+** - will work on any x86-64 Linux-based OS
 	- BASH - the whole script
 
 Limitations:
@@ -58,6 +58,11 @@ scanelf -e test | grep RWX
 or
 readelf -l test | grep RWE
 cat /proc/sys/kernel/randomize_va_space
+```
+For Arch/Ubuntu you will also need to disable stack smashing protection:
+```bash
+sudo gcc -z execstack -fno-stack-protector test.c -o test
+sudo gcc -m32 -z execstack -fno-stack-protector test.c -o test32 
 ```
 
 #### Notes
