@@ -11,7 +11,7 @@ Properties:
 * Unpatchable
 
 Dependencies:
-* **Linux 2.6.12+** - will work on any x86-64 Linux-based OS
+* **Linux 2.6.12+** - would work on any x86-64 Linux-based OS
 	- BASH - the whole script
 
 Limitations:
@@ -59,7 +59,7 @@ or
 readelf -l test | grep RWE
 cat /proc/sys/kernel/randomize_va_space
 ```
-For Arch/Ubuntu you will also need to disable stack smashing protection and optionally install 32-bit library, but 32-bit exploit isn't guaranteed to work and 64-bit will take much longer:
+For Arch/Ubuntu you will also need to disable stack smashing protection and optionally install 32-bit library, but 32-bit exploit isn't guaranteed to work (EIP \xff\xYY is redirected to \x08\x04 and ESP is shifted to argv[1] (not argv[0])) and 64-bit will take much longer (execution delay, probably due to brk(NULL/0) syscall):
 ```bash
 sudo gcc -z execstack -fno-stack-protector test.c -o test
 sudo apt install libc6-dev-i386
