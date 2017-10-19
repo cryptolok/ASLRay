@@ -25,7 +25,7 @@ You might have heard of [Heap Spraying](https://www.corelan.be/index.php/2011/12
 
 My work will prove the opposite.
 
-For 32-bit, there are 2^32 (4 294 967 296) theoretical addresses, nevertheless, the kernel will allow to control about only half of bits (2^(32/2) = 65 536) for an execution in a virtualized memory, which means that if we control more that 50 000 characters in stack, we are almost sure to point to our shellcode, regardless the address, thanks to kernel redirection and retranslation. According to my tests, even 100 characters are enough.
+For 32-bit, there are 2^32 (4 294 967 296) theoretical addresses, nevertheless, the kernel will allow to control about only half of bits (2^(32/2) = 65 536) for an execution in a virtualized memory, which means that if we control more that 50 000 characters in stack, we are almost sure to point to our shellcode, regardless the address, thanks to kernel redirection and retranslation. According to my tests, even 100 characters are enough, even without a NOP sled.
 
 This can be achieved using shell variables, which aren't really limited to a specific length, but practical limit is about one million, otherwise it will saturate the TTY.
 
