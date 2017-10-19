@@ -44,7 +44,7 @@ That said, ASLR on both 32 and 64-bits can be easily bypassed in few minutes and
 
 If you have exploited at least one buffer overflow in your life, you can skip, but just in case:
 ```bash
-apt install gcc || kill -9 $$
+apt install gcc libc6-dev-i386|| kill -9 $$
 chmod u+x ASLRay.sh
 sudo gcc -z execstack test.c -o test
 sudo gcc -m32 -z execstack test.c -o test32
@@ -73,10 +73,9 @@ Thus you can just put your shellcode into a variable and give random addresses t
 In case it still doesn't work, just add some NOPs (\x90) in the beginning.
 
 
-For Arch/Ubuntu you will also need to disable stack smashing protection and optionally install 32-bit library, but 32-bit exploit isn't guaranteed to work (EIP \xff\xYY is redirected to \x08\x04 (not stack) and ESP is shifted to argv[1] (not argv[0])) and 64-bit will take much longer (execution delay, probably due to brk(NULL/0) syscall):
+For Arch/Ubuntu you will also need to disable stack smashing protection, but 32-bit exploit isn't guaranteed to work (EIP \xff\xYY is redirected to \x08\x04 (not stack) and ESP is shifted to argv[1] (not argv[0])) and 64-bit will take much longer (execution delay, probably due to brk(NULL/0) syscall):
 ```bash
 sudo gcc -z execstack -fno-stack-protector test.c -o test
-sudo apt install libc6-dev-i386
 sudo gcc -m32 -z execstack -fno-stack-protector test.c -o test32 
 ```
 
