@@ -52,6 +52,12 @@ sudo chmod +s test test32
 source ASLRay.sh test32 1024
 source ASLRay.sh test 1024
 ```
+To prove that NOP sled isn't necessary for Debian x32:
+```bash
+chmod u+x PoC.sh
+source PoC.sh
+grep ALI /etc/passwd
+```
 Don't forget to check stack execution and ASLR both set:
 ```bash
 scanelf -e test | grep RWX
