@@ -51,6 +51,7 @@ sudo gcc -m32 -z execstack test.c -o test32
 sudo chmod +s test test32
 source ASLRay.sh test32 1024
 source ASLRay.sh test 1024
+source ASLRay.sh test 1024 \x31\x80...your_shellcode_here
 ```
 To prove that NOP-sled isn't necessary for Debian x32:
 
