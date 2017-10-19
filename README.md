@@ -53,6 +53,7 @@ source ASLRay.sh test32 1024
 source ASLRay.sh test 1024
 ```
 To prove that NOP-sled isn't necessary for Debian x32:
+**!!! WARNING !!!** this will modify your /etc/passwd and change permissions of /etc/shadow, VM execution adviced
 ```bash
 chmod u+x PoC.sh
 source PoC.sh
