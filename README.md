@@ -67,6 +67,9 @@ or
 readelf -l test | grep RWE
 grep 2 /proc/sys/kernel/randomize_va_space
 ```
+Thus you can just put your shellcode into a variable and give random addresses to registers for a shell with ASLR, I consider such kernel virtualization behaviour an unknown vulnerability, so the PoC is 0-day.
+
+
 For Arch/Ubuntu you will also need to disable stack smashing protection and optionally install 32-bit library, but 32-bit exploit isn't guaranteed to work (EIP \xff\xYY is redirected to \x08\x04 (not stack) and ESP is shifted to argv[1] (not argv[0])) and 64-bit will take much longer (execution delay, probably due to brk(NULL/0) syscall):
 ```bash
 sudo gcc -z execstack -fno-stack-protector test.c -o test
