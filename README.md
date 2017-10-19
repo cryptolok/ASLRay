@@ -44,7 +44,7 @@ That said, ASLR on both 32 and 64-bits can be easily bypassed in few minutes and
 
 If you have exploited at least one buffer overflow in your life, you can skip, but just in case:
 ```bash
-apt install gcc libc6-dev-i386|| kill -9 $$
+apt install gcc libc6-dev-i386 || kill -9 $$
 chmod u+x ASLRay.sh
 sudo gcc -z execstack test.c -o test
 sudo gcc -m32 -z execstack test.c -o test32
