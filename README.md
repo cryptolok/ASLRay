@@ -1,3 +1,5 @@
+[![Rawsec's CyberSecurity Inventory](http://list.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_flat-square.svg)](http://list.rawsec.ml/tools.html#ASLRay)
+
 # ASLRay
 Linux ELF x32 and x64 ASLR bypass exploit with stack-spraying
 
