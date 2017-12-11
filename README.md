@@ -65,6 +65,12 @@ grep ALI /etc/passwd
 ```
 In case it still doesn't work, just add some NOPs (\x90) in the beginning.
 
+To prove that even environmental variable isn't necessary for Debian x32:
+```bash
+chmod u+x PoC2.sh
+source PoC.sh
+```
+
 Don't forget to check stack execution and ASLR both set:
 ```bash
 scanelf -e test | grep RWX
