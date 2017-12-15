@@ -1,12 +1,13 @@
 [![Rawsec's CyberSecurity Inventory](http://list.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_flat-square.svg)](http://list.rawsec.ml/tools.html#ASLRay)
 
 # ASLRay
-Linux ELF x32 and x64 ASLR bypass exploit with stack-spraying
+Linux ELF x32/x64 ASLR DEP/NX bypass exploit with stack-spraying
 
 ![](https://i.imgur.com/mBuqu8J.jpg)
 
 Properties:
 * ASLR bypass
+* DEP/NX bypass
 * Cross-platform
 * Minimalistic
 * Simplicity
@@ -17,7 +18,7 @@ Dependencies:
 	- BASH - the whole script
 
 Limitations:
-* Stack needs to be executable (-z execstack)
+* Stack needs to be executable (-z execstack) for x64
 * Binary has to be exploited through arguments locally (not file, socket or input)
 * No support for other architectures and OSes (TODO)
 * Need to know the buffer limit/size
@@ -31,7 +32,7 @@ For 32-bit, there are 2^32 (4 294 967 296) theoretical addresses, nevertheless, 
 
 This can be achieved using shell variables, which aren't really limited to a specific length, but practical limit is about one hundrer thousand, otherwise it will saturate the TTY.
 
-So, in order to exploit successfully with any shellcode, we need to put a [NOP sled](https://en.wikipedia.org/wiki/NOP_slide) following the shellcode into a shell variable and just exploit the binary with a random address. Note that NOP sled isn't necessary, this is just to universalise the exploit.
+So, in order to exploit successfully with any shellcode, we need to put a [NOP sled](https://en.wikipedia.org/wiki/NOP_slide) following the shellcode into a shell variable and just exploit the binary with a random address. Note that NOP sled isn't necessary, this is just to universalise the exploit. The reason behind it is unclear to me.
 
 
 In 64-bit system the situation is different, but not so much as of my discovery.
@@ -41,6 +42,12 @@ Of course, you wouldn't have to cover all 2^64 possibilities, in fact, the kerne
 I have mentioned the shell variables size limit, but there is also a count limit, which appears to be about 10, thus allowing us to stock a 1 000 000 character shellcode, living us with just some tenth of thousand possibilities that can be tested rapidly and automatically. This time however, you will need to bruteforce and use NOP-sleds in order to make things quicker.
 
 That said, ASLR on both 32 and 64-bits can be easily bypassed in few minutes and with few lines of shell...
+
+The DEP/NX on the other hand, can be bypassed on x32 using [return-to-libc](https://www.exploit-db.com/docs/28553.pdf) technique by coupling it with statistical studies of different OSes, more specifically, their ASLR limitations and implementations, which can lead to a successful exploitation for 2 reasons.
+The rist one is being ASLR not so random in its choice and having some constants and poor entropy (easy to guess libC address).
+The second one is spraying the shell argument for libC into environment (easy to find and pass it to libC).
+
+To conclude, DEP/NX on 32-bits is weakened because of ASLR.
 
 ### HowTo
 
@@ -54,6 +61,9 @@ sudo chmod +s test test32
 source ASLRay.sh test32 1024
 source ASLRay.sh test 1024
 source ASLRay.sh test 1024 \x31\x80...your_shellcode_here
+sudo gcc -m32 test.c -o test32x
+sudo chmod +s test test32
+source ASLRay.sh test32x 1024
 ```
 To prove that NOP-sled isn't necessary for Debian x32:
 
@@ -71,20 +81,14 @@ chmod u+x PoC2.sh
 source PoC.sh
 ```
 
-Don't forget to check stack execution and ASLR both set:
-```bash
-scanelf -e test | grep RWX
-or
-readelf -l test | grep RWE
-grep 2 /proc/sys/kernel/randomize_va_space
-```
 Thus you can just put your shellcode into a variable and give random addresses to registers for a shell with ASLR, I consider such kernel virtualization behaviour an unknown vulnerability, so the PoC is 0-day.
 
 
-For Arch/Ubuntu you will also need to disable stack smashing protection, but 32-bit exploit isn't guaranteed to work (EIP \xff\xYY is redirected to \x08\x04 (not stack) and ESP is shifted to argv[1] (not argv[0])) and 64-bit will take much longer (execution delay, probably due to brk(NULL/0) syscall):
+For Arch/Ubuntu you will also need to disable stack smashing protection and brute-force may take much longer (execution delay, probably due to brk(NULL/0) syscall):
 ```bash
 sudo gcc -z execstack -fno-stack-protector test.c -o test
-sudo gcc -m32 -z execstack -fno-stack-protector test.c -o test32 
+sudo gcc -m32 -z execstack -fno-stack-protector test.c -o test32
+sudo gcc -m32 -fno-stack-protector test.c -o test32x
 ```
 
 #### Notes
