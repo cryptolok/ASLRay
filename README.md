@@ -28,7 +28,7 @@ You might have heard of [Heap Spraying](https://www.corelan.be/index.php/2011/12
 
 My work will prove the opposite.
 
-For 32-bit, there are 2^32 (4 294 967 296) theoretical addresses, nevertheless, the kernel will allow to control about only half of bits (2^(32/2) = 65 536) for an execution in a virtualized memory, which means that if we control more that 50 000 characters in stack, we are almost sure to point to our shellcode, regardless the address, thanks to kernel redirection and retranslation. According to my tests, even 100 or 10 characters are enough.
+For 32-bit, there are 2^32 (4 294 967 296) theoretical addresses, nevertheless, the kernel will allow to control about only half of bits (2^(32/2) = 65 536) for an execution in a virtualized memory, which means that if we control more that 50 000 characters in stack, we are almost sure to point to our shellcode, regardless the address, thanks to kernel redirection and retranslation. According to my tests, even 100 or 10 characters are enough if the called function doesn't contain other variable creations, which will allow ROP-style attack.
 
 This can be achieved using shell variables, which aren't really limited to a specific length, but practical limit is about one hundrer thousand, otherwise it will saturate the TTY.
 
@@ -44,7 +44,7 @@ I have mentioned the shell variables size limit, but there is also a count limit
 That said, ASLR on both 32 and 64-bits can be easily bypassed in few minutes and with few lines of shell...
 
 The DEP/NX on the other hand, can be bypassed on x32 using [return-to-libc](https://www.exploit-db.com/docs/28553.pdf) technique by coupling it with statistical studies of different OSes, more specifically, their ASLR limitations and implementations, which can lead to a successful exploitation for 2 reasons.
-The rist one is being ASLR not so random in its choice and having some constants and poor entropy (easy to guess libC address).
+The rist one is being ASLR not so random in its choice and having some constants and poor entropy (easy to guess libC address and each OS has its own constants).
 The second one is spraying the shell argument for libC into environment (easy to find and pass it to libC).
 
 To conclude, DEP/NX on 32-bits is weakened because of ASLR.
@@ -81,7 +81,7 @@ chmod u+x PoC2.sh
 source PoC.sh
 ```
 
-Thus you can just put your shellcode into a variable and give random addresses to registers for a shell with ASLR, I consider such kernel virtualization behaviour an unknown vulnerability, so the PoC is 0-day.
+Thus you can just put your shellcode into a variable and give random addresses to registers for a shell with ASLR, this is because the specific context where the function only has one variable which will be rewritten, so the stack will be popped to EIP just with our shellcode, which is more like a ROP attack.
 
 
 For Arch/Ubuntu you will also need to disable stack smashing protection and brute-force may take much longer (execution delay, probably due to brk(NULL/0) syscall):
