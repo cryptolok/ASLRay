@@ -32,7 +32,7 @@ For 32-bit, there are 2^32 (4 294 967 296) theoretical addresses, nevertheless, 
 
 This can be achieved using shell variables, which aren't really limited to a specific length, but practical limit is about one hundrer thousand, otherwise it will saturate the TTY.
 
-So, in order to exploit successfully with any shellcode, we need to put a [NOP sled](https://en.wikipedia.org/wiki/NOP_slide) following the shellcode into a shell variable and just exploit the binary with a random address. Note that NOP sled isn't necessary, this is just to universalise the exploit. The reason behind it is unclear to me.
+So, in order to exploit successfully with any shellcode, we need to put a [NOP sled](https://en.wikipedia.org/wiki/NOP_slide) following the shellcode into a shell variable and just exploit the binary with a random address. Note that NOP sled isn't necessary, this is just to universalise the exploit.
 
 
 In 64-bit system the situation is different, but not so much as of my discovery.
