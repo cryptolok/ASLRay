@@ -78,7 +78,7 @@ In case it still doesn't work, just add some NOPs (\x90) in the beginning.
 To prove that even environmental variable isn't necessary for Debian x32:
 ```bash
 chmod u+x PoC2.sh
-source PoC.sh
+source PoC2.sh
 ```
 
 Thus you can just put your shellcode into a variable and give random addresses to registers for a shell with ASLR, this is because the specific context where the function only has one variable which will be rewritten, so the stack will be popped to EIP just with our shellcode, which is more like a ROP attack.
