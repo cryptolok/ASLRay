@@ -49,6 +49,8 @@ The second one is spraying the shell argument for libC into environment (easy to
 
 To conclude, DEP/NX on 32-bits is weakened because of ASLR.
 
+A more detailed description can be found in Hakin9-12-14 [issue](https://hakin9.org/download/hakin9-open-open-source-tools/).
+
 ### HowTo
 
 If you have exploited at least one buffer overflow in your life, you can skip, but just in case:
