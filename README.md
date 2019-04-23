@@ -83,7 +83,7 @@ chmod u+x PoC2.sh
 source PoC2.sh
 ```
 
-Thus you can just put your shellcode into a variable and give random addresses to registers for a shell with ASLR, this is because the specific context where the function only has one variable which will be rewritten, so the stack will be popped to EIP just with our shellcode, which is more like a ROP attack.
+Thus you can just put your shellcode into a variable and give random addresses to registers for a shell with ASLR, this is because the specific context where the function only has one variable which will be rewritten, so the stack will be popped to EIP just with our shellcode, which is more like a [ROP](https://www.rapid7.com/resources/rop-exploit-explained/) attack.
 
 
 For Arch/Ubuntu you will also need to disable stack smashing protection and brute-force may take much longer (execution delay, probably due to brk(NULL/0) syscall):
