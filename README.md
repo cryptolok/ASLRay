@@ -86,7 +86,7 @@ source PoC2.sh
 Thus you can just put your shellcode into a variable and give random addresses to registers for a shell with ASLR, this is because the specific context where the function only has one variable which will be rewritten, so the stack will be popped to EIP just with our shellcode, which is more like a [ROP](https://www.rapid7.com/resources/rop-exploit-explained/) attack.
 
 
-For Arch/Ubuntu you will also need to disable stack smashing protection and brute-force may take much longer (execution delay, probably due to brk(NULL/0) syscall):
+For Arch/Ubuntu you will also need to disable stack smashing protection and brute-force may take much longer (execution delay, probably due to brk(NULL/0) syscall or/and canary) :
 ```bash
 sudo gcc -z execstack -fno-stack-protector test.c -o test
 sudo gcc -m32 -z execstack -fno-stack-protector test.c -o test32
