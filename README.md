@@ -93,6 +93,8 @@ sudo gcc -m32 -z execstack -fno-stack-protector test.c -o test32
 sudo gcc -m32 -fno-stack-protector test.c -o test32x
 ```
 
+In Debian 10, this issue was partially patched, notably due to AppArmor.
+
 #### Notes
 
 Always rely on multiple protections and not on a single one.
