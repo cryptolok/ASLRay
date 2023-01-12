@@ -1,4 +1,4 @@
-[![Rawsec's CyberSecurity Inventory](http://list.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_flat-square.svg)](http://list.rawsec.ml/tools.html#ASLRay)
+[![Rawsec's CyberSecurity Inventory](http://inventory.raw.pm/img/badges/Rawsec-inventoried-FF5050_flat-square.svg)](http://inventory.raw.pm/tools.html#ASLRay)
 
 # ASLRay
 Linux ELF x32/x64 ASLR DEP/NX bypass exploit with stack-spraying
